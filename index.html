@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramin | Junior DevOps & Infrastructure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d50bb;
+            --dark-space: #020608;
+            --card-bg: rgba(10, 20, 30, 0.85);
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: var(--dark-space); 
+            font-family: 'Inter', sans-serif; 
+            color: #fff; 
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow-x: hidden;
+        }
+        
+        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+        .main-card { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(25px); 
+            border: 1px solid rgba(0, 210, 255, 0.2); 
+            border-radius: 30px; 
+            text-align: center; 
+            max-width: 800px; width: 92%; 
+            padding: clamp(25px, 5vw, 45px);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+            margin: 20px;
+        }
+
+        /* Avatar Section */
+        .avatar-box { position: relative; width: 90px; height: 90px; margin: 0 auto 20px; }
+        .avatar-glow {
+            position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%; z-index: -1; animation: orbit 4s linear infinite;
+        }
+        .avatar { 
+            width: 100%; height: 100%; border-radius: 50%; background: #0d1117;
+            display: flex; align-items: center; justify-content: center; 
+            border: 2px solid var(--neon-blue);
+        }
+        .avatar i { font-size: 2.8rem; color: #fff; filter: drop-shadow(0 0 10px var(--neon-blue)); }
+
+        h1 { 
+            font-size: clamp(2.2rem, 8vw, 3.2rem); margin: 0; font-weight: 900; 
+            background: linear-gradient(to right, #fff, var(--neon-blue)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+        
+        .role { font-size: 0.9rem; color: var(--neon-blue); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 5px; font-weight: 600; }
+
+        .section-label { 
+            text-align: left; font-size: 0.75rem; color: #64748b; 
+            margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; 
+            display: flex; align-items: center; gap: 12px; 
+        }
+        .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(0, 210, 255, 0.15); }
+
+        /* Badge Grid & Optimized Glow Animation */
+        .badge-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 45px; }
+        
+        .badge-anim-wrapper {
+            position: relative;
+            padding: 8px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 210, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* انیمیشن نوری سبک بدون درگیر کردن هندسه */
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        .badge-anim-wrapper:hover {
+            transform: scale(1.08);
+            border-color: var(--neon-blue);
+            background: rgba(0, 210, 255, 0.12);
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.5), inset 0 0 10px rgba(0, 210, 255, 0.2);
+            animation-play-state: paused;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                border-color: rgba(0, 210, 255, 0.1); 
+                box-shadow: 0 0 10px rgba(0, 210, 255, 0.05); 
+            }
+            50% { 
+                border-color: rgba(0, 210, 255, 0.5); 
+                box-shadow: 0 0 25px rgba(0, 210, 255, 0.25); 
+            }
+        }
+
+        /* Hourglass */
+        .loading-box { 
+            width: 130px; height: 170px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center;
+            border: 1px dashed rgba(0, 210, 255, 0.3); border-radius: 20px;
+        }
+        .loading-box i { font-size: 2rem; color: var(--neon-blue); animation: sand-flip 2.5s infinite; }
+        .loading-box span { margin-top: 15px; font-size: 0.65rem; color: #64748b; font-weight: bold; }
+
+        @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes sand-flip { 0% { transform: rotate(0deg); } 50%, 100% { transform: rotate(180deg); } }
+
+        .btn { 
+            padding: 14px 35px; border-radius: 12px; border: 1px solid var(--neon-blue); 
+            background: transparent; color: #fff; text-decoration: none; 
+            font-size: 0.9rem; font-weight: 700; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 25px var(--neon-blue); }
+
+        .footer { margin-top: 50px; font-size: 0.7rem; color: #475569; letter-spacing: 4px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="main-card">
+        <div class="avatar-box">
+            <div class="avatar-glow"></div>
+            <div class="avatar"><i class="fas fa-user-ninja"></i></div>
+        </div>
+        
+        <h1>RAMIN</h1>
+        <div class="role">Junior DevOps & Infrastructure</div>
+
+        <div class="section-label">Verified Certifications</div>
+        <div class="badge-grid">
+            <div class="badge-anim-wrapper" style="animation-delay: 0s;">
+                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="4025f4f6-41ac-46b9-b9eb-e6f0ff6ac2bd" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+            <div class="badge-anim-wrapper" style="animation-delay: 1s;">
+                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="ea1d9bac-f9a1-4675-b3d8-9b4a0b2510ae" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+            <div class="badge-anim-wrapper" style="animation-delay: 2s;">
+                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="52c8a52e-5f7b-432e-b55d-2889c1459a03" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+            <div class="badge-anim-wrapper" style="animation-delay: 3s;">
+                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="544ef690-fc2d-4d18-98a7-85548e8e7c34" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+        </div>
+
+        <div class="section-label">Pipeline Progress</div>
+        <div class="badge-grid">
+            <div class="loading-box">
+                <i class="fas fa-hourglass-half"></i>
+                <span>DEPLOYING FUTURE...</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/Go0Dz1lah" target="_blank" class="btn">
+                <i class="fab fa-github"></i> GITHUB PROFILE
+            </a>
+        </div>
+
+        <div class="footer">ROOT ACCESS GRANTED | 2026</div>
+    </div>
+
+    <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 1.8;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(0, 210, 255, 0.6)"; 
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "var(--neon-blue)";
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.update(); p.draw();
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 130) {
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${0.6 - dist/130})`;
+                        ctx.lineWidth = 1.5; // خطوط ضخیم‌تر و Glow دار
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
