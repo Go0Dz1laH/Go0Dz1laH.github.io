@@ -30,7 +30,7 @@
             border: 1px solid rgba(0, 210, 255, 0.2); 
             border-radius: 30px; 
             text-align: center; 
-            max-width: 800px; width: 92%; 
+            max-width: 850px; width: 92%; 
             padding: clamp(25px, 5vw, 45px);
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
             margin: 20px;
@@ -66,16 +66,15 @@
         .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(0, 210, 255, 0.15); }
 
         /* Badge Grid & Optimized Glow Animation */
-        .badge-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 45px; }
+        .badge-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 45px; }
         
         .badge-anim-wrapper {
             position: relative;
-            padding: 8px;
+            padding: 5px;
             border-radius: 18px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(0, 210, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* انیمیشن نوری سبک بدون درگیر کردن هندسه */
             animation: glowPulse 4s ease-in-out infinite;
         }
 
@@ -136,16 +135,20 @@
 
         <div class="section-label">Verified Certifications</div>
         <div class="badge-grid">
-            <div class="badge-anim-wrapper" style="animation-delay: 0s;">
+            <div class="badge-anim-wrapper">
+                <div data-iframe-width="130" data-iframe-height="240" data-share-badge-id="89de1370-36a1-4739-a685-c4e183c01f71" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+            
+            <div class="badge-anim-wrapper" style="animation-delay: 0.5s;">
                 <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="4025f4f6-41ac-46b9-b9eb-e6f0ff6ac2bd" data-share-badge-host="https://www.credly.com"></div>
             </div>
             <div class="badge-anim-wrapper" style="animation-delay: 1s;">
                 <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="ea1d9bac-f9a1-4675-b3d8-9b4a0b2510ae" data-share-badge-host="https://www.credly.com"></div>
             </div>
-            <div class="badge-anim-wrapper" style="animation-delay: 2s;">
+            <div class="badge-anim-wrapper" style="animation-delay: 1.5s;">
                 <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="52c8a52e-5f7b-432e-b55d-2889c1459a03" data-share-badge-host="https://www.credly.com"></div>
             </div>
-            <div class="badge-anim-wrapper" style="animation-delay: 3s;">
+            <div class="badge-anim-wrapper" style="animation-delay: 2s;">
                 <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="544ef690-fc2d-4d18-98a7-85548e8e7c34" data-share-badge-host="https://www.credly.com"></div>
             </div>
         </div>
@@ -158,7 +161,7 @@
             </div>
         </div>
 
-          <div style="margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+        <div style="margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
             <a href="https://github.com/Go0Dz1lah" target="_blank" class="btn">
                 <i class="fab fa-github"></i> GITHUB
             </a>
@@ -214,7 +217,7 @@
                     if (dist < 130) {
                         ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
                         ctx.strokeStyle = `rgba(0, 210, 255, ${0.6 - dist/130})`;
-                        ctx.lineWidth = 1.5; // خطوط ضخیم‌تر و Glow دار
+                        ctx.lineWidth = 1.5; 
                         ctx.stroke();
                     }
                 }
