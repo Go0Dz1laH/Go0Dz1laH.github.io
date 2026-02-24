@@ -1,230 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramin | Junior DevOps & Infrastructure</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --neon-blue: #00d2ff;
-            --neon-purple: #9d50bb;
-            --dark-space: #020608;
-            --card-bg: rgba(10, 20, 30, 0.85);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ramin Maghami — Full-Stack Developer & Cloud Architect. Portfolio, projects, skills, and contact." />
+  <meta name="author" content="Ramin Maghami" />
+  <meta name="theme-color" content="#0a0c15" />
+  <!-- Open Graph & Twitter (SEO + sharing) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ramin Maghami | Full-Stack Developer & Cloud Architect" />
+  <meta property="og:description" content="Portfolio — projects, skills, certificates, and contact." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ramin Maghami | Full-Stack Developer Portfolio" />
+  <title>Ramin Maghami | Full-Stack Developer & Cloud Architect — Portfolio</title>
 
-        body { 
-            margin: 0; padding: 0; 
-            background-color: var(--dark-space); 
-            font-family: 'Inter', sans-serif; 
-            color: #fff; 
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; overflow-x: hidden;
-        }
-        
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+  <!-- Google Fonts (display=swap for faster paint, less layout shift) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
 
-        .main-card { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(25px); 
-            border: 1px solid rgba(0, 210, 255, 0.2); 
-            border-radius: 30px; 
-            text-align: center; 
-            max-width: 850px; width: 92%; 
-            padding: clamp(25px, 5vw, 45px);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-            margin: 20px;
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            base: '#0a0c15',
+          }
         }
+      }
+    };
+  </script>
 
-        /* Avatar Section */
-        .avatar-box { position: relative; width: 90px; height: 90px; margin: 0 auto 20px; }
-        .avatar-glow {
-            position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 50%; z-index: -1; animation: orbit 4s linear infinite;
-        }
-        .avatar { 
-            width: 100%; height: 100%; border-radius: 50%; background: #0d1117;
-            display: flex; align-items: center; justify-content: center; 
-            border: 2px solid var(--neon-blue);
-        }
-        .avatar i { font-size: 2.8rem; color: #fff; filter: drop-shadow(0 0 10px var(--neon-blue)); }
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
-        h1 { 
-            font-size: clamp(2.2rem, 8vw, 3.2rem); margin: 0; font-weight: 900; 
-            background: linear-gradient(to right, #fff, var(--neon-blue)); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-        }
-        
-        .role { font-size: 0.9rem; color: var(--neon-blue); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 5px; font-weight: 600; }
-
-        .section-label { 
-            text-align: left; font-size: 0.75rem; color: #64748b; 
-            margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; 
-            display: flex; align-items: center; gap: 12px; 
-        }
-        .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(0, 210, 255, 0.15); }
-
-        /* Badge Grid & Optimized Glow Animation */
-        .badge-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 45px; }
-        
-        .badge-anim-wrapper {
-            position: relative;
-            padding: 5px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 210, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: glowPulse 4s ease-in-out infinite;
-        }
-
-        .badge-anim-wrapper:hover {
-            transform: scale(1.08);
-            border-color: var(--neon-blue);
-            background: rgba(0, 210, 255, 0.12);
-            box-shadow: 0 0 35px rgba(0, 210, 255, 0.5), inset 0 0 10px rgba(0, 210, 255, 0.2);
-            animation-play-state: paused;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { 
-                border-color: rgba(0, 210, 255, 0.1); 
-                box-shadow: 0 0 10px rgba(0, 210, 255, 0.05); 
-            }
-            50% { 
-                border-color: rgba(0, 210, 255, 0.5); 
-                box-shadow: 0 0 25px rgba(0, 210, 255, 0.25); 
-            }
-        }
-
-        /* Hourglass */
-        .loading-box { 
-            width: 130px; height: 170px; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center;
-            border: 1px dashed rgba(0, 210, 255, 0.3); border-radius: 20px;
-        }
-        .loading-box i { font-size: 2rem; color: var(--neon-blue); animation: sand-flip 2.5s infinite; }
-        .loading-box span { margin-top: 15px; font-size: 0.65rem; color: #64748b; font-weight: bold; }
-
-        @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes sand-flip { 0% { transform: rotate(0deg); } 50%, 100% { transform: rotate(180deg); } }
-
-        .btn { 
-            padding: 14px 35px; border-radius: 12px; border: 1px solid var(--neon-blue); 
-            background: transparent; color: #fff; text-decoration: none; 
-            font-size: 0.9rem; font-weight: 700; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 25px var(--neon-blue); }
-
-        .footer { margin-top: 50px; font-size: 0.7rem; color: #475569; letter-spacing: 4px; }
-    </style>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-    <canvas id="canvas"></canvas>
+<body class="bg-base min-h-screen flex flex-col relative text-gray-300">
+  <!-- Matrix Background Canvas -->
+  <canvas id="matrix-canvas" class="fixed inset-0 z-0 pointer-events-none opacity-20"></canvas>
 
-    <div class="main-card">
-        <div class="avatar-box">
-            <div class="avatar-glow"></div>
-            <div class="avatar"><i class="fas fa-user-ninja"></i></div>
-        </div>
-        
-        <h1>RAMIN</h1>
-        <div class="role">Junior DevOps & Infrastructure</div>
-
-        <div class="section-label">Verified Certifications</div>
-        <div class="badge-grid">
-            <div class="badge-anim-wrapper">
-                <div data-iframe-width="130" data-iframe-height="240" data-share-badge-id="89de1370-36a1-4739-a685-c4e183c01f71" data-share-badge-host="https://www.credly.com"></div>
-            </div>
-            
-            <div class="badge-anim-wrapper" style="animation-delay: 0.5s;">
-                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="4025f4f6-41ac-46b9-b9eb-e6f0ff6ac2bd" data-share-badge-host="https://www.credly.com"></div>
-            </div>
-            <div class="badge-anim-wrapper" style="animation-delay: 1s;">
-                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="ea1d9bac-f9a1-4675-b3d8-9b4a0b2510ae" data-share-badge-host="https://www.credly.com"></div>
-            </div>
-            <div class="badge-anim-wrapper" style="animation-delay: 1.5s;">
-                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="52c8a52e-5f7b-432e-b55d-2889c1459a03" data-share-badge-host="https://www.credly.com"></div>
-            </div>
-            <div class="badge-anim-wrapper" style="animation-delay: 2s;">
-                <div class="badge-container" data-iframe-width="130" data-iframe-height="240" data-share-badge-id="544ef690-fc2d-4d18-98a7-85548e8e7c34" data-share-badge-host="https://www.credly.com"></div>
-            </div>
-        </div>
-
-        <div class="section-label">Pipeline Progress</div>
-        <div class="badge-grid">
-            <div class="loading-box">
-                <i class="fas fa-hourglass-half"></i>
-                <span>DEPLOYING FUTURE...</span>
-            </div>
-        </div>
-
-        <div style="margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
-            <a href="https://github.com/Go0Dz1lah" target="_blank" class="btn">
-                <i class="fab fa-github"></i> GITHUB
-            </a>
-            
-            <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=ramin-maghami-381381218" target="_blank" class="btn">
-                <i class="fab fa-linkedin"></i> LINKEDIN
-            </a>
-        </div>
-
-        <div class="footer">ROOT ACCESS GRANTED | 2026</div>
+  <!-- ============ TOP BAR ============ -->
+  <header class="relative z-10 flex items-center justify-between px-5 py-3 border-b border-white/5 flex-shrink-0" role="banner">
+    <div class="flex items-center gap-2">
+      <span class="w-7 h-7 rounded-full bg-emerald-400/20 flex items-center justify-center" aria-hidden="true">
+        <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
+      </span>
+      <span class="text-white text-sm font-semibold">DevConsole</span>
+      <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600" aria-hidden="true"></i>
     </div>
 
-    <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+    <div class="flex items-center gap-4">
+      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Notifications"><i data-lucide="bell" class="w-4 h-4"></i></button>
+      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Profile"><i data-lucide="user" class="w-4 h-4"></i></button>
+      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Display"><i data-lucide="monitor" class="w-4 h-4"></i></button>
+      <div
+        class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-500 text-xs">
+        <i data-lucide="search" class="w-3 h-3"></i> Search
+      </div>
+    </div>
+  </header>
 
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize);
-        resize();
+  <!-- ============ MAIN WRAPPER ============ -->
+  <div class="flex flex-1 overflow-hidden">
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
-                this.radius = Math.random() * 1.8;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(0, 210, 255, 0.6)"; 
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = "var(--neon-blue)";
-                ctx.fill();
-            }
-        }
+    <!-- ======== SIDEBAR ======== -->
+    <aside class="sidebar w-56 flex-shrink-0 flex flex-col py-6 px-4 overflow-y-auto" role="complementary" aria-label="Profile and navigation">
+      <div id="profile-area" class="text-center mb-8">
+        <!-- JS renders avatar + name here -->
+      </div>
+      <nav class="flex flex-col gap-1" aria-label="Dashboard sections">
+        <a href="#" class="nav-link active" data-nav="dashboard">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+        </a>
+        <a href="#" class="nav-link" data-nav="projects">
+          <i data-lucide="folder-git-2" class="w-4 h-4"></i> Projects
+        </a>
+        <a href="#" class="nav-link" data-nav="skills">
+          <i data-lucide="cpu" class="w-4 h-4"></i> Skills
+        </a>
+        <a href="#" class="nav-link" data-nav="certificates">
+          <i data-lucide="award" class="w-4 h-4"></i> Certificates
+        </a>
+        <a href="#" class="nav-link" data-nav="contact">
+          <i data-lucide="mail" class="w-4 h-4"></i> Contact
+        </a>
+      </nav>
 
-        for (let i = 0; i < 70; i++) particles.push(new Particle());
+      <!-- Sidebar footer -->
+      <div class="mt-auto pt-6 border-t border-white/5 text-[10px] text-gray-700 text-center relative z-10">
+        © 2025 Go0Dz1laH
+      </div>
+    </aside>
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update(); p.draw();
-                for (let j = index + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 130) {
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(0, 210, 255, ${0.6 - dist/130})`;
-                        ctx.lineWidth = 1.5; 
-                        ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
+    <!-- ======== MOBILE BOTTOM NAV ======== -->
+    <nav class="mobile-menu fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 flex justify-around py-2.5 px-2 bg-base-solid" role="navigation" aria-label="Main">
+      <a href="#" class="nav-link active flex-col !gap-0 !p-2 text-[10px]" data-nav="dashboard"><i
+          data-lucide="layout-dashboard" class="w-5 h-5"></i>Home</a>
+      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="projects"><i data-lucide="folder-git-2"
+          class="w-5 h-5"></i>Projects</a>
+      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="skills"><i data-lucide="cpu"
+          class="w-5 h-5"></i>Skills</a>
+      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="certificates"><i data-lucide="award"
+          class="w-5 h-5"></i>Certs</a>
+      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="contact"><i data-lucide="mail"
+          class="w-5 h-5"></i>Contact</a>
+    </nav>
+
+    <!-- ======== CONTENT AREA ======== -->
+    <main class="flex-1 overflow-y-auto p-5 lg:p-6 pb-24 lg:pb-6" role="main" id="main-content">
+
+      <!-- ─────────── DASHBOARD VIEW ─────────── -->
+      <section id="dashboard" class="view-section active">
+
+        <!-- Row 1: Focus + Commits + Activity top widget -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
+
+          <!-- Current Focus -->
+          <div class="lg:col-span-5 glass p-5">
+            <h3 class="text-white text-sm font-semibold mb-4">Current Focus</h3>
+            <div class="flex items-start gap-5">
+              <div id="focus-info" class="flex-1 min-w-0">
+                <!-- JS renders focus card here -->
+              </div>
+              <div id="circular-progress" class="flex-shrink-0">
+                <!-- JS renders circular progress here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- GitHub Statistics (image with fallback when API unavailable) -->
+          <div class="lg:col-span-3 glass p-5 flex flex-col items-center justify-center">
+            <h3 class="text-white text-sm font-semibold w-full mb-2">GitHub Statistics</h3>
+            <div id="github-stats-wrapper" class="github-stats-container w-full min-h-[140px] flex items-center justify-center">
+              <img
+                id="github-stats-img"
+                src="https://github-readme-stats.vercel.app/api?username=go0dz1lah&theme=radical&show_icons=true&hide_border=true&bg_color=0a0c15"
+                alt="GitHub statistics for go0dz1lah — stars, commits, contributions"
+                class="w-full max-w-full h-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                loading="lazy"
+                referrerpolicy="no-referrer" />
+              <div id="github-stats-fallback" class="hidden w-full" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <!-- Quick Stats / Sparkline -->
+          <div class="lg:col-span-4 glass p-5">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="glow-dot text-emerald-400"></span>
+              <h3 class="text-white text-sm font-semibold">Achievements & Metrics</h3>
+            </div>
+            <p class="text-gray-500 text-xs mb-3">Repos contributed to and milestones reached</p>
+            <!-- Mini sparkline SVG -->
+            <svg viewBox="0 0 200 50" class="w-full h-14">
+              <polyline fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                points="0,40 20,35 40,25 60,30 80,15 100,20 120,10 140,18 160,8 180,12 200,5" />
+              <polyline fill="url(#sparkFill)" stroke="none"
+                points="0,50 0,40 20,35 40,25 60,30 80,15 100,20 120,10 140,18 160,8 180,12 200,5 200,50" />
+              <defs>
+                <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.25" />
+                  <stop offset="100%" stop-color="#a78bfa" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="flex gap-4 mt-3 text-[10px] text-gray-600">
+              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Packs / Pages -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
+          <div class="lg:col-span-6 glass p-5">
+            <h3 class="text-white text-sm font-semibold mb-2">Pinned Pages</h3>
+            <p class="text-xs text-gray-500 mb-2">Essential project documentation</p>
+            <div class="space-y-3 mt-4">
+              <div
+                class="flex items-center gap-3 text-xs text-gray-400 hover:text-cyan-400 transition cursor-pointer p-2 rounded-lg bg-white/5 border border-white/5">
+                <i data-lucide="book-open" class="w-4 h-4 text-cyan-500"></i>
+                <div>
+                  <span class="text-white block font-medium">readme.md</span>
+                  <span class="text-[10px]">Project architecture & core rules</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-6 glass p-5">
+            <h3 class="text-white text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="github" class="w-4 h-4 text-white"></i> Live GitHub Activity
+            </h3>
+            <div id="activity-list" class="space-y-4">
+              <div class="animate-pulse flex gap-3">
+                <div class="w-2 h-2 rounded-full bg-gray-600 mt-1"></div>
+                <div class="flex-1 space-y-2">
+                  <div class="h-3 bg-white/10 rounded w-3/4"></div>
+                  <div class="h-3 bg-white/10 rounded w-1/2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Skills & Tech Stack -->
+        <div class="glass p-5 mb-4">
+          <h3 class="text-white text-sm font-semibold mb-4">Skills & Tech Stack</h3>
+          <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            <!-- JS renders skill cards here -->
+          </div>
+        </div>
+
+        <!-- Row 4: My Projects (Development Tracker) -->
+        <div class="glass p-5">
+          <h3 class="text-white text-sm font-semibold mb-1">Development Pipeline</h3>
+          <p class="text-xs text-gray-500 mb-5">Professional life-related milestones.</p>
+          <div id="projects-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- JS renders simple progress items here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── PROJECTS VIEW ─────────── -->
+      <section id="projects" class="view-section">
+        <h2 class="text-white text-xl font-bold mb-1">Projects</h2>
+        <p class="text-gray-500 text-sm mb-6">All work, side-projects, and experiments.</p>
+        <div id="projects-full-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Project cards are duplicated here as full-width cards via JS -->
+        </div>
+      </section>
+
+      <!-- ─────────── SKILLS VIEW ─────────── -->
+      <section id="skills" class="view-section">
+        <h2 class="text-white text-xl font-bold mb-1">Skills & Proficiency</h2>
+        <p class="text-gray-500 text-sm mb-6">Technical stack with proficiency levels.</p>
+        <div id="skills-full-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS populates -->
+        </div>
+      </section>
+
+      <!-- ─────────── CERTIFICATES VIEW ─────────── -->
+      <section id="certificates" class="view-section">
+        <h2 class="text-white text-xl font-bold mb-1">Certificates & Badges</h2>
+        <p class="text-gray-500 text-sm mb-6">Credly & professional certifications. Replace placeholders with your badge
+          embeds.</p>
+        <div id="cert-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS renders Credly placeholders here -->
+        </div>
+      </section>
+
+      <!-- ─────────── CONTACT VIEW ─────────── -->
+      <section id="contact" class="view-section">
+        <h2 class="text-white text-xl font-bold mb-1">Contact</h2>
+        <p class="text-gray-500 text-sm mb-6">Reach out through any channel below.</p>
+
+        <div class="terminal-window max-w-2xl">
+          <div class="terminal-header">
+            <span class="terminal-dot bg-red-500"></span>
+            <span class="terminal-dot bg-yellow-500"></span>
+            <span class="terminal-dot bg-green-500"></span>
+            <span class="text-xs text-gray-600 ml-2 font-mono">contact.sh — zsh</span>
+          </div>
+          <div id="terminal-body" class="terminal-body">
+            <!-- JS renders terminal-style contact here -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+
+  <!-- Activate Lucide Icons -->
+  <script>lucide.createIcons();</script>
 </body>
+
 </html>

@@ -1,0 +1,442 @@
+/* ============================================================
+   style.css — Custom styles for Portfolio Dashboard
+   ============================================================ */
+
+/* ---------- Base & Scrollbar ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0c15;
+  color: #c9d1d9;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.bg-base-solid {
+  background-color: #0a0c15;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, .35);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, .6);
+}
+
+/* ---------- Glassmorphism (low-GPU: solid rgba, 2D transform, will-change on hover only) ---------- */
+.glass {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+  transition: border-color .3s ease, box-shadow .3s ease, transform .25s ease;
+}
+
+.glass:hover {
+  border-color: rgba(139, 92, 246, .3);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, .08);
+  transform: translateY(-2px);
+  will-change: transform;
+}
+
+.glass-sm {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 12px;
+  transition: border-color .25s ease, transform .25s ease;
+}
+
+.glass-sm:hover {
+  border-color: rgba(56, 189, 248, .25);
+  transform: translateY(-2px);
+  will-change: transform;
+}
+
+/* ---------- Sidebar (single blur layer for glassmorphism) ---------- */
+.sidebar {
+  background: rgba(255, 255, 255, .04);
+  border-right: 1px solid rgba(255, 255, 255, .06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .65rem 1rem;
+  border-radius: 10px;
+  font-size: .85rem;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all .25s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #c9d1d9;
+  background: rgba(255, 255, 255, .04);
+}
+
+.nav-link:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, .6);
+  outline-offset: 2px;
+}
+
+.nav-link.active {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, .08);
+  border: 1px solid rgba(56, 189, 248, .15);
+}
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 25%;
+  height: 50%;
+  width: 3px;
+  border-radius: 999px;
+  background: #38bdf8;
+}
+
+/* ---------- Circular Progress ---------- */
+.circular-progress {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.circular-progress svg {
+  transform: rotate(-90deg);
+}
+
+.circular-progress .track {
+  fill: none;
+  stroke: rgba(255, 255, 255, .06);
+  stroke-width: 5;
+}
+
+.circular-progress .fill {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 226;
+  transition: stroke-dashoffset 1.2s ease;
+}
+
+/* ---------- Progress Bars ---------- */
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, .05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Pulse: opacity + scale only (low-GPU, no text-shadow repaint) */
+@keyframes pulse-violet {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.06); }
+}
+
+.pulse-icon {
+  animation: pulse-violet 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-icon {
+    animation: none;
+  }
+}
+
+/* ---------- Chart Bars ---------- */
+.chart-bar {
+  border-radius: 3px 3px 0 0;
+  transition: height .6s ease, background .3s ease;
+  min-width: 10px;
+}
+
+.chart-bar:hover {
+  opacity: 0.9;
+}
+
+/* ---------- Timeline ---------- */
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ---------- Horizontal Scroll ---------- */
+.scroll-x {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: .5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-x>* {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ---------- Section Transition ---------- */
+.view-section {
+  display: none;
+  animation: fadeUp .45s ease both;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .glass:hover, .glass-sm:hover { transform: none; will-change: auto; }
+  .view-section { animation: none; }
+  .animate-on-scroll { animation: none; }
+}
+
+/* ---------- Glow Accent ---------- */
+.glow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* ---------- Skill Icon Boxes ---------- */
+.skill-icon-box {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ---------- Project Card ---------- */
+.project-card {
+  width: 210px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, .02);
+  border: 1px solid rgba(255, 255, 255, .06);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px -8px rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.project-card .img-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 120px;
+}
+
+.project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ---------- Terminal / Code Editor Contact ---------- */
+.terminal-window {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 14px;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+
+.terminal-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  font-size: .85rem;
+  line-height: 2;
+  color: #6b7280;
+}
+
+.terminal-body a {
+  color: #6b7280;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.terminal-body a:hover {
+  color: #38bdf8;
+}
+
+.terminal-body .prompt {
+  color: #22d3ee;
+}
+
+.terminal-body .key {
+  color: #a78bfa;
+}
+
+.terminal-body .str {
+  color: #34d399;
+}
+
+.terminal-body .caret {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #38bdf8;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- Credly Badge Placeholder ---------- */
+.credly-slot {
+  width: 100%;
+  min-height: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, .03) 0%, transparent 70%);
+  border-radius: 14px;
+}
+
+.credly-slot:hover {
+  transform: translateY(-6px);
+  filter: drop-shadow(0 15px 25px rgba(56, 189, 248, 0.15));
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* ---------- Misc ---------- */
+.text-gradient {
+  background: linear-gradient(135deg, #38bdf8, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge {
+  font-size: .65rem;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+/* Subtle grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* GitHub Statistics fallback card */
+.github-stats-container {
+  position: relative;
+}
+
+.github-stats-card {
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* ---------- Mobile Responsive ---------- */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
