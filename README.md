@@ -13,7 +13,7 @@
 
 **A high-performance, GPU-optimized developer portfolio with real-time GitHub integration**
 
-[🌐 Live Demo](https://go0dz1lah.github.io) · [📊 GitHub Profile](https://github.com/go0dz1lah) · [✉️ Contact](mailto:go0dz1lah@dev.io)
+[🌐 Live Demo](https://go0dz1lah.github.io) · [📊 GitHub Profile](https://github.com/go0dz1lah) · [✉️ Contact](mailto:mail@go0dz1lah.indevs.in)
 
 ---
 
