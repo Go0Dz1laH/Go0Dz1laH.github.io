@@ -157,7 +157,7 @@ const CERTIFICATES = [
 ];
 
 const CONTACT = {
-  email: "go0dz1lah@dev.io",
+  email: "mail@go0dz1lah.indevs.in",
   github: "github.com/go0dz1lah",
   linkedin: "linkedin.com/in/raminmaghami",
   twitter: "x.com/go0dz1lah",
@@ -913,3 +913,4 @@ window.addEventListener('beforeunload', () => {
     particles.innerHTML = '';
   }
 });
+
