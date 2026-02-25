@@ -115,11 +115,7 @@ portfolio/
 ├── 🎨 style.css           # Custom CSS with GPU optimizations
 ├── ⚡ script.js           # Application logic & GitHub API integration
 ├── 📖 README.md           # Project documentation
-└── 📂 plans/              # Development planning documents
-    ├── codebase-analysis.md
-    ├── portfolio-redesign.md
-    ├── ui-enhancements.md
-    └── comprehensive-ui-ux-audit.md
+└── 
 ```
 
 ### File Descriptions
