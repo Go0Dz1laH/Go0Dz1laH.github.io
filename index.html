@@ -2,27 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ramin Maghami — Full-Stack Developer & Cloud Architect. Portfolio, projects, skills, and contact." />
-  <meta name="author" content="Ramin Maghami" />
-  <meta name="theme-color" content="#0a0c15" />
-  <!-- Open Graph & Twitter (SEO + sharing) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Ramin Maghami | Full-Stack Developer & Cloud Architect" />
-  <meta property="og:description" content="Portfolio — projects, skills, certificates, and contact." />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Ramin Maghami | Full-Stack Developer Portfolio" />
-  <title>Ramin Maghami | Full-Stack Developer & Cloud Architect — Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ramin Maghami - Full-Stack Developer & Cloud Architect Portfolio">
+  <meta name="theme-color" content="#0a0c15">
+  <title>Ramin Maghami | Full-Stack Developer & Cloud Architect</title>
 
-  <!-- Google Fonts (display=swap for faster paint, less layout shift) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet" />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
 
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -34,257 +27,594 @@
           },
           colors: {
             base: '#0a0c15',
+            surface: 'rgba(255,255,255,0.03)',
+            'surface-hover': 'rgba(255,255,255,0.06)',
+            accent: {
+              violet: '#a78bfa',
+              cyan: '#38bdf8',
+              emerald: '#34d399',
+              rose: '#fb7185',
+            }
           }
         }
       }
     };
   </script>
 
+  <!-- GSAP for optimized animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-base min-h-screen flex flex-col relative text-gray-300">
-  <!-- Matrix Background Canvas -->
-  <canvas id="matrix-canvas" class="fixed inset-0 z-0 pointer-events-none opacity-20"></canvas>
+<body class="bg-base text-gray-300">
 
-  <!-- ============ TOP BAR ============ -->
-  <header class="relative z-10 flex items-center justify-between px-5 py-3 border-b border-white/5 flex-shrink-0" role="banner">
-    <div class="flex items-center gap-2">
-      <span class="w-7 h-7 rounded-full bg-emerald-400/20 flex items-center justify-center" aria-hidden="true">
-        <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
-      </span>
-      <span class="text-white text-sm font-semibold">DevConsole</span>
-      <i data-lucide="chevron-down" class="w-3 h-3 text-gray-600" aria-hidden="true"></i>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Notifications"><i data-lucide="bell" class="w-4 h-4"></i></button>
-      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Profile"><i data-lucide="user" class="w-4 h-4"></i></button>
-      <button type="button" class="text-gray-500 hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 rounded" aria-label="Display"><i data-lucide="monitor" class="w-4 h-4"></i></button>
-      <div
-        class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-500 text-xs">
-        <i data-lucide="search" class="w-3 h-3"></i> Search
-      </div>
-    </div>
-  </header>
-
-  <!-- ============ MAIN WRAPPER ============ -->
-  <div class="flex flex-1 overflow-hidden">
-
-    <!-- ======== SIDEBAR ======== -->
-    <aside class="sidebar w-56 flex-shrink-0 flex flex-col py-6 px-4 overflow-y-auto" role="complementary" aria-label="Profile and navigation">
-      <div id="profile-area" class="text-center mb-8">
-        <!-- JS renders avatar + name here -->
-      </div>
-      <nav class="flex flex-col gap-1" aria-label="Dashboard sections">
-        <a href="#" class="nav-link active" data-nav="dashboard">
-          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
-        </a>
-        <a href="#" class="nav-link" data-nav="projects">
-          <i data-lucide="folder-git-2" class="w-4 h-4"></i> Projects
-        </a>
-        <a href="#" class="nav-link" data-nav="skills">
-          <i data-lucide="cpu" class="w-4 h-4"></i> Skills
-        </a>
-        <a href="#" class="nav-link" data-nav="certificates">
-          <i data-lucide="award" class="w-4 h-4"></i> Certificates
-        </a>
-        <a href="#" class="nav-link" data-nav="contact">
-          <i data-lucide="mail" class="w-4 h-4"></i> Contact
-        </a>
-      </nav>
-
-      <!-- Sidebar footer -->
-      <div class="mt-auto pt-6 border-t border-white/5 text-[10px] text-gray-700 text-center relative z-10">
-        © 2025 Go0Dz1laH
-      </div>
-    </aside>
-
-    <!-- ======== MOBILE BOTTOM NAV ======== -->
-    <nav class="mobile-menu fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 flex justify-around py-2.5 px-2 bg-base-solid" role="navigation" aria-label="Main">
-      <a href="#" class="nav-link active flex-col !gap-0 !p-2 text-[10px]" data-nav="dashboard"><i
-          data-lucide="layout-dashboard" class="w-5 h-5"></i>Home</a>
-      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="projects"><i data-lucide="folder-git-2"
-          class="w-5 h-5"></i>Projects</a>
-      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="skills"><i data-lucide="cpu"
-          class="w-5 h-5"></i>Skills</a>
-      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="certificates"><i data-lucide="award"
-          class="w-5 h-5"></i>Certs</a>
-      <a href="#" class="nav-link flex-col !gap-0 !p-2 text-[10px]" data-nav="contact"><i data-lucide="mail"
-          class="w-5 h-5"></i>Contact</a>
-    </nav>
-
-    <!-- ======== CONTENT AREA ======== -->
-    <main class="flex-1 overflow-y-auto p-5 lg:p-6 pb-24 lg:pb-6" role="main" id="main-content">
-
-      <!-- ─────────── DASHBOARD VIEW ─────────── -->
-      <section id="dashboard" class="view-section active">
-
-        <!-- Row 1: Focus + Commits + Activity top widget -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-
-          <!-- Current Focus -->
-          <div class="lg:col-span-5 glass p-5">
-            <h3 class="text-white text-sm font-semibold mb-4">Current Focus</h3>
-            <div class="flex items-start gap-5">
-              <div id="focus-info" class="flex-1 min-w-0">
-                <!-- JS renders focus card here -->
-              </div>
-              <div id="circular-progress" class="flex-shrink-0">
-                <!-- JS renders circular progress here -->
-              </div>
-            </div>
-          </div>
-
-          <!-- GitHub Statistics (image with fallback when API unavailable) -->
-          <div class="lg:col-span-3 glass p-5 flex flex-col items-center justify-center">
-            <h3 class="text-white text-sm font-semibold w-full mb-2">GitHub Statistics</h3>
-            <div id="github-stats-wrapper" class="github-stats-container w-full min-h-[140px] flex items-center justify-center">
-              <img
-                id="github-stats-img"
-                src="https://github-readme-stats.vercel.app/api?username=go0dz1lah&theme=radical&show_icons=true&hide_border=true&bg_color=0a0c15"
-                alt="GitHub statistics for go0dz1lah — stars, commits, contributions"
-                class="w-full max-w-full h-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-                loading="lazy"
-                referrerpolicy="no-referrer" />
-              <div id="github-stats-fallback" class="hidden w-full" aria-live="polite"></div>
-            </div>
-          </div>
-
-          <!-- Quick Stats / Sparkline -->
-          <div class="lg:col-span-4 glass p-5">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="glow-dot text-emerald-400"></span>
-              <h3 class="text-white text-sm font-semibold">Achievements & Metrics</h3>
-            </div>
-            <p class="text-gray-500 text-xs mb-3">Repos contributed to and milestones reached</p>
-            <!-- Mini sparkline SVG -->
-            <svg viewBox="0 0 200 50" class="w-full h-14">
-              <polyline fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                points="0,40 20,35 40,25 60,30 80,15 100,20 120,10 140,18 160,8 180,12 200,5" />
-              <polyline fill="url(#sparkFill)" stroke="none"
-                points="0,50 0,40 20,35 40,25 60,30 80,15 100,20 120,10 140,18 160,8 180,12 200,5 200,50" />
-              <defs>
-                <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.25" />
-                  <stop offset="100%" stop-color="#a78bfa" stop-opacity="0" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="flex gap-4 mt-3 text-[10px] text-gray-600">
-              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row 2: Packs / Pages -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-          <div class="lg:col-span-6 glass p-5">
-            <h3 class="text-white text-sm font-semibold mb-2">Pinned Pages</h3>
-            <p class="text-xs text-gray-500 mb-2">Essential project documentation</p>
-            <div class="space-y-3 mt-4">
-              <div
-                class="flex items-center gap-3 text-xs text-gray-400 hover:text-cyan-400 transition cursor-pointer p-2 rounded-lg bg-white/5 border border-white/5">
-                <i data-lucide="book-open" class="w-4 h-4 text-cyan-500"></i>
-                <div>
-                  <span class="text-white block font-medium">readme.md</span>
-                  <span class="text-[10px]">Project architecture & core rules</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="lg:col-span-6 glass p-5">
-            <h3 class="text-white text-sm font-semibold mb-4 flex items-center gap-2">
-              <i data-lucide="github" class="w-4 h-4 text-white"></i> Live GitHub Activity
-            </h3>
-            <div id="activity-list" class="space-y-4">
-              <div class="animate-pulse flex gap-3">
-                <div class="w-2 h-2 rounded-full bg-gray-600 mt-1"></div>
-                <div class="flex-1 space-y-2">
-                  <div class="h-3 bg-white/10 rounded w-3/4"></div>
-                  <div class="h-3 bg-white/10 rounded w-1/2"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row 3: Skills & Tech Stack -->
-        <div class="glass p-5 mb-4">
-          <h3 class="text-white text-sm font-semibold mb-4">Skills & Tech Stack</h3>
-          <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            <!-- JS renders skill cards here -->
-          </div>
-        </div>
-
-        <!-- Row 4: My Projects (Development Tracker) -->
-        <div class="glass p-5">
-          <h3 class="text-white text-sm font-semibold mb-1">Development Pipeline</h3>
-          <p class="text-xs text-gray-500 mb-5">Professional life-related milestones.</p>
-          <div id="projects-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- JS renders simple progress items here -->
-          </div>
-        </div>
-      </section>
-
-      <!-- ─────────── PROJECTS VIEW ─────────── -->
-      <section id="projects" class="view-section">
-        <h2 class="text-white text-xl font-bold mb-1">Projects</h2>
-        <p class="text-gray-500 text-sm mb-6">All work, side-projects, and experiments.</p>
-        <div id="projects-full-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Project cards are duplicated here as full-width cards via JS -->
-        </div>
-      </section>
-
-      <!-- ─────────── SKILLS VIEW ─────────── -->
-      <section id="skills" class="view-section">
-        <h2 class="text-white text-xl font-bold mb-1">Skills & Proficiency</h2>
-        <p class="text-gray-500 text-sm mb-6">Technical stack with proficiency levels.</p>
-        <div id="skills-full-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- JS populates -->
-        </div>
-      </section>
-
-      <!-- ─────────── CERTIFICATES VIEW ─────────── -->
-      <section id="certificates" class="view-section">
-        <h2 class="text-white text-xl font-bold mb-1">Certificates & Badges</h2>
-        <p class="text-gray-500 text-sm mb-6">Credly & professional certifications. Replace placeholders with your badge
-          embeds.</p>
-        <div id="cert-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- JS renders Credly placeholders here -->
-        </div>
-      </section>
-
-      <!-- ─────────── CONTACT VIEW ─────────── -->
-      <section id="contact" class="view-section">
-        <h2 class="text-white text-xl font-bold mb-1">Contact</h2>
-        <p class="text-gray-500 text-sm mb-6">Reach out through any channel below.</p>
-
-        <div class="terminal-window max-w-2xl">
-          <div class="terminal-header">
-            <span class="terminal-dot bg-red-500"></span>
-            <span class="terminal-dot bg-yellow-500"></span>
-            <span class="terminal-dot bg-green-500"></span>
-            <span class="text-xs text-gray-600 ml-2 font-mono">contact.sh — zsh</span>
-          </div>
-          <div id="terminal-body" class="terminal-body">
-            <!-- JS renders terminal-style contact here -->
-          </div>
-        </div>
-      </section>
-
-    </main>
+  <!-- CSS Animated Particles Background -->
+  <div id="particles-bg" class="fixed inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <!-- Particles will be generated by CSS/JS -->
   </div>
 
-  <!-- Main Script -->
-  <script src="script.js"></script>
+  <!-- Gradient Background Layer -->
+  <div id="gradient-bg" class="fixed inset-0 z-0 pointer-events-none"></div>
 
-  <!-- Activate Lucide Icons -->
+  <!-- Mobile Navigation (Single Menu) - Fixed to viewport bottom on mobile -->
+  <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 z-50 bg-base/95 border-t border-white/10 hidden">
+    <div class="flex justify-around items-center py-3 px-4">
+      <button class="nav-item active" data-section="dashboard">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1">Home</span>
+      </button>
+      <button class="nav-item" data-section="projects">
+        <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1">Projects</span>
+      </button>
+      <button class="nav-item" data-section="skills">
+        <i data-lucide="cpu" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1">Skills</span>
+      </button>
+      <button class="nav-item" data-section="certificates">
+        <i data-lucide="award" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1">Certs</span>
+      </button>
+      <button class="nav-item" data-section="contact">
+        <i data-lucide="mail" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1">Contact</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- macOS-style Window Container -->
+  <div class="macos-window">
+    <!-- Window Title Bar -->
+    <div class="macos-titlebar">
+      <div class="macos-traffic-lights">
+        <span class="macos-light macos-light--red"></span>
+        <span class="macos-light macos-light--yellow"></span>
+        <span class="macos-light macos-light--green"></span>
+      </div>
+      <div class="macos-title">
+        <span class="macos-title-icon">⚡</span>
+        <span>DevConsole — Ramin Maghami</span>
+      </div>
+      <div class="macos-titlebar-spacer"></div>
+    </div>
+
+    <!-- Window Content - Flex container for sidebar + main -->
+    <div class="macos-content">
+
+      <!-- Desktop Sidebar - Inside macos-content as flex child -->
+      <aside id="sidebar" class="sidebar-panel hidden lg:flex flex-col">
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-8">
+            <div
+              class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+              <i data-lucide="terminal" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <h1 class="text-white font-semibold text-sm">DevConsole</h1>
+              <p class="text-xs text-gray-500">Portfolio v2.0</p>
+            </div>
+          </div>
+
+          <div class="mb-8 text-center">
+            <div class="relative inline-block">
+              <img id="sidebar-avatar" src="" alt=""
+                class="w-20 h-20 rounded-full border-2 border-white/10 mx-auto mb-3">
+              <div
+                class="absolute bottom-3 right-0 w-5 h-5 bg-emerald-500 rounded-full border-2 border-base flex items-center justify-center">
+                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              </div>
+            </div>
+            <h2 id="sidebar-name" class="text-white font-medium text-sm"></h2>
+            <p id="sidebar-title" class="text-xs text-gray-500 mt-1"></p>
+          </div>
+
+          <nav class="space-y-1">
+            <button class="nav-link active" data-section="dashboard">
+              <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+              <span>Dashboard</span>
+            </button>
+            <button class="nav-link" data-section="projects">
+              <i data-lucide="folder-git-2" class="w-4 h-4"></i>
+              <span>Projects</span>
+            </button>
+            <button class="nav-link" data-section="skills">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+              <span>Skills</span>
+            </button>
+            <button class="nav-link" data-section="certificates">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              <span>Certificates</span>
+            </button>
+            <button class="nav-link" data-section="contact">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <span>Contact</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="mt-auto p-6 border-t border-white/10">
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span>© 2025 Go0Dz1laH</span>
+            <div class="flex gap-2">
+              <a href="https://github.com/go0dz1lah" class="hover:text-white transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/raminmaghami/" class="hover:text-white transition-colors">
+                <i data-lucide="linkedin" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Panel - Scrollable -->
+      <div class="main-panel">
+        <main id="main-content" class="min-h-full relative z-10">
+
+          <!-- Header -->
+          <header
+            class="sticky top-0 z-30 bg-base/95 backdrop-blur-sm border-b border-white/5 px-4 lg:px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+                <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+              </div>
+              <div class="hidden sm:flex flex-col">
+                <span class="text-white font-medium text-sm">DevConsole</span>
+                <span class="text-xs text-gray-500">Portfolio v2.0</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span class="text-xs text-gray-400">Online</span>
+              </div>
+              <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors" title="Notifications">
+                <i data-lucide="bell" class="w-4 h-4 text-gray-400"></i>
+              </button>
+              <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors hidden sm:flex"
+                title="Search">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+              </button>
+            </div>
+          </header>
+
+          <!-- Content Area -->
+          <div class="p-4 lg:p-6 pb-24 lg:pb-6">
+
+            <!-- DASHBOARD VIEW -->
+            <section id="dashboard" class="view-section active">
+
+              <!-- Bento Grid Layout - Centered container -->
+              <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
+
+                  <!-- Profile Stats Card (First) -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6 profile-card" data-animate="fade">
+                    <!-- "It's Me" Heading -->
+                    <div class="flex items-center gap-2 mb-4">
+                      <span class="profile-heading">It's Me</span>
+                      <span class="profile-heading-wave">👋</span>
+                    </div>
+
+                    <div class="flex items-start justify-between mb-6">
+                      <div class="flex items-center gap-4">
+                        <div class="relative">
+                          <img id="hero-avatar" src="" alt="" class="w-16 h-16 rounded-2xl border border-white/10">
+                          <div
+                            class="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-lg border-2 border-[#131620] flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="flex items-center gap-2">
+                            <h3 id="hero-name" class="text-white font-bold text-lg"></h3>
+                            <span class="heartbeat-icon">❤️</span>
+                          </div>
+                          <p id="hero-title" class="text-sm text-gray-500"></p>
+                        </div>
+                      </div>
+                      <span
+                        class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+                        Available
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="text-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                        <div id="stat-repos" class="text-xl font-bold text-white mb-1 metric-value">--</div>
+                        <div class="text-xs text-gray-500">Repositories</div>
+                      </div>
+                      <div class="text-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                        <div id="stat-followers" class="text-xl font-bold text-white mb-1 metric-value">--</div>
+                        <div class="text-xs text-gray-500">Followers</div>
+                      </div>
+                      <div
+                        class="text-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors relative overflow-hidden">
+                        <div class="star-animation-container">
+                          <div id="stat-stars-profile" class="text-xl font-bold text-white mb-1 metric-value">--</div>
+                        </div>
+                        <div class="text-xs text-gray-500 flex items-center justify-center gap-1">
+                          <span class="star-icon">⭐</span> Stars
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Current Deployment Card (Large) — redesigned -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6 deployment-card"
+                    data-animate="scale">
+                    <div class="flex flex-col h-full gap-5">
+
+                      <!-- Top label -->
+                      <p class="deployment-label tracking-widest text-xs font-semibold uppercase">Current Deployment
+                      </p>
+
+                      <!-- Main content row -->
+                      <div class="flex items-center gap-6 flex-1">
+                        <!-- Left: text -->
+                        <div class="flex-1 min-w-0">
+                          <h3 class="deployment-title font-black leading-tight mb-3">
+                            Building <span class="deployment-title-accent">Future</span>
+                          </h3>
+                          <p id="focus-description" class="text-sm text-gray-400 leading-relaxed mb-5">
+                            Architecting tomorrow's web today with high-performance cloud infrastructure.
+                          </p>
+
+                          <!-- Pipeline stages -->
+                          <div>
+                            <div class="flex items-center justify-between mb-2">
+                              <span
+                                class="deployment-label tracking-widest text-[10px] font-semibold uppercase">Development
+                                Pipeline</span>
+                              <span
+                                class="deployment-stage-label text-[10px] font-semibold tracking-widest uppercase">Stage
+                                3/5</span>
+                            </div>
+                            <div class="flex gap-2">
+                              <div class="pipeline-stage pipeline-stage--active flex-1 h-1.5 rounded-full"></div>
+                              <div class="pipeline-stage pipeline-stage--active flex-1 h-1.5 rounded-full"></div>
+                              <div class="pipeline-stage pipeline-stage--active flex-1 h-1.5 rounded-full"></div>
+                              <div class="pipeline-stage pipeline-stage--inactive flex-1 h-1.5 rounded-full"></div>
+                              <div class="pipeline-stage pipeline-stage--inactive flex-1 h-1.5 rounded-full"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Right: efficiency ring -->
+                        <div class="flex flex-col items-center gap-2 flex-shrink-0">
+                          <div class="relative">
+                            <svg class="w-28 h-28 transform -rotate-90" viewBox="0 0 120 120">
+                              <defs>
+                                <linearGradient id="efficiencyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" style="stop-color:#22d3ee" />
+                                  <stop offset="50%" style="stop-color:#a855f7" />
+                                  <stop offset="100%" style="stop-color:#f472b6" />
+                                </linearGradient>
+                              </defs>
+                              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.06)"
+                                stroke-width="10" />
+                              <circle id="efficiency-circle" cx="60" cy="60" r="50" fill="none"
+                                stroke="url(#efficiencyGradient)" stroke-width="10" stroke-linecap="round"
+                                stroke-dasharray="314.159" stroke-dashoffset="314.159"
+                                class="transition-all duration-1500 ease-out" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                              <span id="efficiency-text" class="text-2xl font-black text-white">0%</span>
+                            </div>
+                          </div>
+                          <span
+                            class="deployment-label tracking-widest text-[10px] font-semibold uppercase">Efficiency</span>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Live GitHub Activity -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6 github-activity-card"
+                    data-animate="fade">
+                    <div class="github-activity-header">
+                      <div class="github-activity-icon">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <h4 class="text-white text-sm font-medium">Live GitHub Activity</h4>
+                        <p class="text-xs text-gray-500">Recent commits and events</p>
+                      </div>
+                    </div>
+                    <div id="github-activity-list" class="space-y-1">
+                      <!-- JS populated from GitHub API -->
+                    </div>
+                  </div>
+
+                  <!-- Development Pipeline Section -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6" data-animate="fade">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-white text-sm font-medium">Development Pipeline</h4>
+                      <span class="text-xs text-violet-400 font-medium">Stage 3/5</span>
+                    </div>
+                    <div class="dev-pipeline-stages">
+                      <div class="dev-pipeline-stage">
+                        <div class="dev-pipeline-stage-num">1</div>
+                        <div class="dev-pipeline-stage-content">
+                          <div class="dev-pipeline-stage-title">Research & Planning</div>
+                          <div class="dev-pipeline-stage-desc">Analyzing requirements and architecture</div>
+                        </div>
+                        <span class="dev-pipeline-stage-status">Done</span>
+                      </div>
+                      <div class="dev-pipeline-stage">
+                        <div class="dev-pipeline-stage-num">2</div>
+                        <div class="dev-pipeline-stage-content">
+                          <div class="dev-pipeline-stage-title">Design & Prototype</div>
+                          <div class="dev-pipeline-stage-desc">UI/UX design and wireframing</div>
+                        </div>
+                        <span class="dev-pipeline-stage-status">Done</span>
+                      </div>
+                      <div class="dev-pipeline-stage dev-pipeline-stage--active">
+                        <div class="dev-pipeline-stage-num">3</div>
+                        <div class="dev-pipeline-stage-content">
+                          <div class="dev-pipeline-stage-title">Development</div>
+                          <div class="dev-pipeline-stage-desc">Core implementation and coding</div>
+                        </div>
+                        <span class="dev-pipeline-stage-status dev-pipeline-stage-status--pending">In Progress</span>
+                      </div>
+                      <div class="dev-pipeline-stage">
+                        <div class="dev-pipeline-stage-num">4</div>
+                        <div class="dev-pipeline-stage-content">
+                          <div class="dev-pipeline-stage-title">Testing & QA</div>
+                          <div class="dev-pipeline-stage-desc">Quality assurance and bug fixes</div>
+                        </div>
+                        <span class="dev-pipeline-stage-status dev-pipeline-stage-status--pending">Pending</span>
+                      </div>
+                      <div class="dev-pipeline-stage">
+                        <div class="dev-pipeline-stage-num">5</div>
+                        <div class="dev-pipeline-stage-content">
+                          <div class="dev-pipeline-stage-title">Deployment</div>
+                          <div class="dev-pipeline-stage-desc">Production release and monitoring</div>
+                        </div>
+                        <span class="dev-pipeline-stage-status dev-pipeline-stage-status--pending">Pending</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pinned Pages Section (Half Size) -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6" data-animate="scale">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-white text-sm font-medium">Pinned Pages</h4>
+                      <a href="https://github.com/go0dz1lah" target="_blank"
+                        class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">View all →</a>
+                    </div>
+                    <div class="space-y-3">
+                      <!-- README Card -->
+                      <div class="pinned-page-card-mini">
+                        <div class="pinned-page-header">
+                          <div class="pinned-page-icon">📄</div>
+                          <div>
+                            <div class="pinned-page-title">README.md</div>
+                            <div class="pinned-page-subtitle">Project Documentation</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Portfolio Card -->
+                      <div class="pinned-page-card-mini">
+                        <div class="pinned-page-header">
+                          <div class="pinned-page-icon">🚀</div>
+                          <div>
+                            <div class="pinned-page-title">Portfolio v2</div>
+                            <div class="pinned-page-subtitle">This Project</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Skills Preview Section -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6" data-animate="fade">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-white text-sm font-medium">Top Skills</h4>
+                      <button class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                        data-section="skills">View
+                        all →</button>
+                    </div>
+                    <div id="skills-preview" class="space-y-3">
+                      <!-- JS populated -->
+                    </div>
+                  </div>
+
+                  <!-- Weekly Commits Chart -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-3 p-6" data-animate="scale">
+                    <div class="flex items-center justify-between mb-6">
+                      <p class="deployment-label tracking-widest text-xs font-semibold uppercase">Weekly Commits</p>
+                      <div id="weekly-stats" class="text-xs text-gray-400">
+                        <span class="text-white font-medium">Loading...</span>
+                      </div>
+                    </div>
+
+                    <!-- Weekly Bar Chart — dynamically generated from GitHub API -->
+                    <div class="weekly-chart-wrap">
+                      <div class="weekly-chart-bars">
+                        <!-- Bars will be rendered by renderWeeklyCommitsChart() -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quick Stats Row -->
+                  <div class="bento-card col-span-1 md:col-span-2 xl:col-span-4 p-6 quick-stats-row"
+                    data-animate="fade">
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-white text-sm font-medium">GitHub Statistics</h4>
+                      <a href="https://github.com/go0dz1lah" target="_blank"
+                        class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">View Profile →</a>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                          <i data-lucide="git-commit" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <div>
+                          <p id="stat-total-commits" class="text-lg font-bold text-white">--</p>
+                          <p class="text-xs text-gray-500">Contributions</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5">
+                        <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                          <i data-lucide="git-commit" class="w-5 h-5 text-violet-400"></i>
+                        </div>
+                        <div>
+                          <p id="stat-commits" class="text-lg font-bold text-white">--</p>
+                          <p class="text-xs text-gray-500">Commits</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                          <i data-lucide="git-pull-request" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                        <div>
+                          <p id="stat-prs" class="text-lg font-bold text-white">--</p>
+                          <p class="text-xs text-gray-500">Pull Requests</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center">
+                          <i data-lucide="circle-dot" class="w-5 h-5 text-rose-400"></i>
+                        </div>
+                        <div>
+                          <p id="stat-issues" class="text-lg font-bold text-white">--</p>
+                          <p class="text-xs text-gray-500">Issues</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Commits Per Repo Section -->
+                    <div id="github-stats-container" class="mt-4 space-y-2">
+                      <!-- JS populated with commits per repo -->
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+            <!-- PROJECTS VIEW -->
+            <section id="projects" class="view-section">
+              <div class="max-w-7xl mx-auto">
+                <div class="section-header">
+                  <div class="section-header-icon">
+                    <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h2 class="section-header-title">Projects</h2>
+                    <p class="section-header-subtitle">All work, side-projects, and experiments.</p>
+                  </div>
+                </div>
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  <!-- JS populated -->
+                </div>
+              </div>
+            </section>
+
+            <!-- SKILLS VIEW -->
+            <section id="skills" class="view-section">
+              <div class="max-w-7xl mx-auto">
+                <div class="section-header">
+                  <div class="section-header-icon">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h2 class="section-header-title">Skills & Proficiency</h2>
+                    <p class="section-header-subtitle">Technical stack with proficiency levels.</p>
+                  </div>
+                </div>
+                <div id="skills-grid-full" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <!-- JS populated -->
+                </div>
+              </div>
+            </section>
+
+            <!-- CERTIFICATES VIEW -->
+            <section id="certificates" class="view-section">
+              <div class="max-w-7xl mx-auto">
+                <div class="section-header">
+                  <div class="section-header-icon">
+                    <i data-lucide="award" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h2 class="section-header-title">Certificates & Badges</h2>
+                    <p class="section-header-subtitle">Professional certifications and achievements.</p>
+                  </div>
+                </div>
+                <div id="certificates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <!-- JS populated -->
+                </div>
+              </div>
+            </section>
+
+            <!-- CONTACT VIEW -->
+            <section id="contact" class="view-section">
+              <div class="max-w-7xl mx-auto">
+                <div class="section-header">
+                  <div class="section-header-icon">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h2 class="section-header-title">Contact</h2>
+                    <p class="section-header-subtitle">Reach out through any channel below.</p>
+                  </div>
+                </div>
+                <div class="max-w-2xl">
+                  <div class="terminal-window">
+                    <div class="terminal-header">
+                      <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+                      <span class="text-xs text-gray-500 ml-2">contact.sh — zsh</span>
+                    </div>
+                    <div id="terminal-body" class="terminal-body">
+                      <!-- JS populated -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </main>
+      </div><!-- End main-panel -->
+
+    </div><!-- End macos-content -->
+  </div><!-- End macos-window -->
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
   <script>lucide.createIcons();</script>
+
 </body>
 
 </html>
